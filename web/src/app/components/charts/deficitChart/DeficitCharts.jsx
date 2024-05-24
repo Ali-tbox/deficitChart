@@ -86,8 +86,8 @@ function DeficitCharts({ handleItemClick }) {
         </Text>
       </Box>
       <Box maxW={'100%'} gap={'43px'} display='flex'>
-        <DeficitGraph horseSide='front' data={chartData?.deficit?.foreImpact} type='Impact' />
-        <DeficitGraph horseSide='front' data={chartData?.deficit?.forePushoff} type='Push Off' />
+        <DeficitGraph horseSide='front' data={chartData?.deficit?.foreImpact} data1={chartData?.deficit?.foreImpact} type='Impact' />
+        <DeficitGraph horseSide='front' data={chartData?.deficit?.forePushoff} data1={chartData?.deficit?.forePushoff} type='Push Off' />
       </Box>
       <Box mt='12px' display={'flex'} gap={'20px'}>
         {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
@@ -120,8 +120,8 @@ function DeficitCharts({ handleItemClick }) {
         </Text>
       </Box>
       <Box maxW={'100%'} h={'80%'} gap={'43px'} display='flex'>
-        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindImpact} type='Impact' />
-        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindPushoff} type='Push Off' />
+        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindImpact} data1={chartData?.deficit?.hindImpact} type='Impact' />
+        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindPushoff} data1={chartData?.deficit?.hindPushoff} type='Push Off' />
       </Box>
       <Box mt='12px' gap='20px' display={'flex'}>
         {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
@@ -143,7 +143,7 @@ function DeficitCharts({ handleItemClick }) {
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='10px' h='10px' border={'1px'} borderRadius={'full'} borderColor={'#747474'}></Box>
           <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
-            BaseLine
+            Baseline
           </Text>
         </Box>
       </Box>

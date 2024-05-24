@@ -4,7 +4,7 @@ import React from 'react'
 import colors from '../../../config/colors'
 import PointBarChart from './PointBarChart'
 
-function DeficitGraph({ horseSide, data, type }) {
+function DeficitGraph({ horseSide, data1, data, type }) {
   return (
     <Box display={'flex'} flexDirection={'column'} mt={'13px'} h='197px' w='239px' maxW={'100%'} borderRadius='8px' border='1px' borderColor={colors.faintgray}>
       <Box paddingY='8px' paddingX={'16px'} alignItems={'center'} display='flex' gap={'40px'}>
@@ -25,7 +25,7 @@ function DeficitGraph({ horseSide, data, type }) {
           </Text>
         </Box>
         <Box minH={'100%'} maxW='100%'>
-          <PointBarChart type={horseSide} data={data} />
+          <PointBarChart type={horseSide} data1={data1} data={data} />
         </Box>
       </Box>
     </Box>

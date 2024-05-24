@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto'
 import ChartDataLabels from 'chartjs-plugin-datalabels' // Import the plugin
 import colors from '../../../config/colors'
 
-function PointBarChart({ type, data }) {
+function PointBarChart({ type, data1, data }) {
   function getColorByRange(number) {
     if (type === 'front') {
       if (number >= 0 && number <= 11) {
@@ -41,24 +41,45 @@ function PointBarChart({ type, data }) {
     }
   }
 
-  const right = data?.right || 0
-  const left = data?.left || 0
-  const straight = data?.straight || 0
-  const mean = Math.round((right + left + straight) / 3)
-  const isLeft = data?.left !== undefined ? [Math.round(data.left)] : []
-  const isStraight = data?.straight !== undefined ? [...isLeft, Math.round(data.straight)] : [...isLeft]
-  const isRight = data?.right !== undefined ? [...isStraight, Math.round(data.right)] : [...isStraight]
-  const isLeftColor = data?.left !== undefined ? [colors.faintblue] : []
-  const isStraightColor = data?.straight !== undefined ? [...isLeftColor, colors.mustard] : [...isLeftColor]
-  const isRightColor = data?.right !== undefined ? [...isStraightColor, colors.darkpurple] : [...isStraightColor]
-  const labelColor = isRightColor
+  const right = Math.trunc(data?.right)
+  const left = Math.trunc(data?.left)
+  const straight = Math.trunc(data?.straight)
 
-  const isLeftPointColor = data?.left !== undefined ? [colors.lightfaintblue] : []
-  const isStraightPointColor = data?.straight !== undefined ? [...isLeftPointColor, colors.lightMustard] : [...isLeftPointColor]
-  const isRightPointColor = data?.right !== undefined ? [...isStraightPointColor, colors.lightPurple] : [...isStraightPointColor]
-  const labelPointColor = isRightPointColor
-  const labelData = isRight
-  console.log('adasdasdasda', type)
+  const baseRight = Math.trunc(data1?.right)
+  const baseLeft = Math.trunc(data1?.left)
+  const baseStraight = Math.trunc(data1?.straight)
+
+  const mean = data?.mean
+  const baseMean = data1?.mean
+
+  const isLeftColor = !isNaN(left) ? [colors.faintblue] : []
+  const isBaseLeftColor = !isNaN(baseLeft) ? [...isLeftColor, colors.faintblue] : [...isLeftColor]
+  const isStraightColor = !isNaN(straight) ? [...isBaseLeftColor, colors.mustard] : [...isLeftColor]
+  const isBaseStraightColor = !isNaN(baseStraight) ? [...isStraightColor, colors.mustard] : [...isStraightColor]
+  const isRightColor = !isNaN(right) ? [...isBaseStraightColor, colors.darkpurple] : [...isBaseStraightColor]
+  const isBaseRightColor = !isNaN(baseRight) ? [...isRightColor, colors.darkpurple] : [...isRightColor]
+  const labelColor = isBaseRightColor
+
+  const isLeftPointColor = !isNaN(left) ? [colors.lightfaintblue] : []
+  const isBaseLeftPointColor = !isNaN(baseLeft) ? [...isLeftPointColor, colors.lightfaintblue] : [...isLeftPointColor]
+  const isStraightPointColor = !isNaN(straight) ? [...isBaseLeftPointColor, colors.lightMustard] : [...isBaseLeftPointColor]
+  const isBaseStraightPointColor = !isNaN(baseStraight) ? [...isStraightPointColor, colors.lightMustard] : [...isStraightPointColor]
+  const isRightPointColor = !isNaN(right) ? [...isBaseStraightPointColor, colors.lightPurple] : [...isBaseStraightPointColor]
+  const isBaseRightPointColor = !isNaN(baseRight) ? [...isRightPointColor, colors.lightPurple] : [...isRightPointColor]
+  const labelPointColor = isBaseRightPointColor
+  // let labelPointColor = []
+
+  // if (data?.left) labelPointColor.push(colors.lightfaintblue)
+  // if (data1?.baseLeft !== undefined) labelPointColor.push(colors.lightfaintblue)
+  // if (data?.straight !== undefined) labelPointColor.push(colors.lightMustard)
+  // if (data1?.baseStraight !== undefined) labelPointColor.push(colors.lightMustard)
+  // if (data?.right !== undefined) labelPointColor.push(colors.lightPurple)
+  // if (data?.baseRight !== undefined) labelPointColor.push(colors.lightPurple)
+  // const labelData = isRight
+
+  const dataArray = [left, baseLeft, straight, baseStraight, right, baseRight]
+  const filteredArray = dataArray.filter(value => !isNaN(value))
+  console.log('adasdasdasda', dataArray, data1)
 
   const chartContainer = useRef(null)
   let myChart = null
@@ -78,7 +99,7 @@ function PointBarChart({ type, data }) {
           datasets: [
             {
               label: 'Line Dataset',
-              data: [, 100, -100, 60, 29, -40, 60],
+              data: [, ...filteredArray],
               borderColor: [, ...labelColor],
               pointBackgroundColor: [, ...labelColor],
               pointRadius: 5,
@@ -91,7 +112,7 @@ function PointBarChart({ type, data }) {
             },
             {
               label: 'Bar Dataset',
-              data: [, 100, -100, 60, 29, -40, 60],
+              data: [, ...filteredArray],
               backgroundColor: [, ...labelPointColor],
               borderRadius: 16,
               maxBarThickness: '12',
@@ -99,7 +120,7 @@ function PointBarChart({ type, data }) {
             },
             {
               label: 'Line Dataset',
-              data: [mean, mean, mean, mean, mean, mean],
+              data: [mean, mean, mean, mean, mean, mean, mean, mean],
               pointStyle: false,
               borderColor: '#868B8F',
               borderDash: [5, 5],
