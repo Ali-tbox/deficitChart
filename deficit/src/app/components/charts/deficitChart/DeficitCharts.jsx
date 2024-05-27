@@ -1,7 +1,7 @@
 import { Box, Divider, Text } from '@chakra-ui/layout'
 import React from 'react'
 import Icon from '../../form/Icon'
-// import chartData from '../chartData'
+import chartData from '../chartData'
 
 import DeficitGraph from './DeficitGraph'
 
@@ -21,7 +21,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({ chartData, handleItemClick }) {
+function DeficitCharts({}) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }

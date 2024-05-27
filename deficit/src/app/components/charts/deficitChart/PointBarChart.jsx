@@ -50,22 +50,23 @@ function PointBarChart({ type, data1, data }) {
   const baseStraight = Math.trunc(data1?.straight)
 
   const mean = data?.mean
-  const baseMean = data1?.mean
+  // const baseMean = data1?.mean
+  const baseMean = Math.trunc(43)
 
-  const isLeftColor = !isNaN(left) ? [colors.faintblue] : []
-  const isBaseLeftColor = !isNaN(baseLeft) ? [...isLeftColor, colors.faintblue] : [...isLeftColor]
-  const isStraightColor = !isNaN(straight) ? [...isBaseLeftColor, colors.mustard] : [...isLeftColor]
-  const isBaseStraightColor = !isNaN(baseStraight) ? [...isStraightColor, colors.mustard] : [...isStraightColor]
-  const isRightColor = !isNaN(right) ? [...isBaseStraightColor, colors.darkpurple] : [...isBaseStraightColor]
-  const isBaseRightColor = !isNaN(baseRight) ? [...isRightColor, colors.darkpurple] : [...isRightColor]
+  const isLeftColor = !isNaN(left) ? [colors.faintblue] : ['transparent']
+  const isBaseLeftColor = !isNaN(baseLeft) ? [...isLeftColor, colors.faintblue] : [...isLeftColor, 'transparent']
+  const isStraightColor = !isNaN(straight) ? [...isBaseLeftColor, colors.mustard] : [...isBaseLeftColor, 'transparent']
+  const isBaseStraightColor = !isNaN(baseStraight) ? [...isStraightColor, colors.mustard] : [...isStraightColor, 'transparent']
+  const isRightColor = !isNaN(right) ? [...isBaseStraightColor, colors.darkpurple] : [...isBaseStraightColor, 'transparent']
+  const isBaseRightColor = !isNaN(baseRight) ? [...isRightColor, colors.darkpurple] : [...isRightColor, 'transparent']
   const labelColor = isBaseRightColor
 
-  const isLeftPointColor = !isNaN(left) ? [colors.lightfaintblue] : []
-  const isBaseLeftPointColor = !isNaN(baseLeft) ? [...isLeftPointColor, colors.lightfaintblue] : [...isLeftPointColor]
-  const isStraightPointColor = !isNaN(straight) ? [...isBaseLeftPointColor, colors.lightMustard] : [...isBaseLeftPointColor]
-  const isBaseStraightPointColor = !isNaN(baseStraight) ? [...isStraightPointColor, colors.lightMustard] : [...isStraightPointColor]
-  const isRightPointColor = !isNaN(right) ? [...isBaseStraightPointColor, colors.lightPurple] : [...isBaseStraightPointColor]
-  const isBaseRightPointColor = !isNaN(baseRight) ? [...isRightPointColor, colors.lightPurple] : [...isRightPointColor]
+  const isLeftPointColor = !isNaN(left) ? [colors.lightfaintblue] : ['transparent']
+  const isBaseLeftPointColor = !isNaN(baseLeft) ? [...isLeftPointColor, colors.lightfaintblue] : [...isLeftPointColor, 'transparent']
+  const isStraightPointColor = !isNaN(straight) ? [...isBaseLeftPointColor, colors.lightMustard] : [...isBaseLeftPointColor, 'transparent']
+  const isBaseStraightPointColor = !isNaN(baseStraight) ? [...isStraightPointColor, colors.lightMustard] : [...isStraightPointColor, 'transparent']
+  const isRightPointColor = !isNaN(right) ? [...isBaseStraightPointColor, colors.lightPurple] : [...isBaseStraightPointColor, 'transparent']
+  const isBaseRightPointColor = !isNaN(baseRight) ? [...isRightPointColor, colors.lightPurple] : [...isRightPointColor, 'transparent']
   const labelPointColor = isBaseRightPointColor
   // let labelPointColor = []
 
@@ -78,8 +79,8 @@ function PointBarChart({ type, data1, data }) {
   // const labelData = isRight
 
   const dataArray = [left, baseLeft, straight, baseStraight, right, baseRight]
-  const filteredArray = dataArray.filter(value => !isNaN(value))
-  console.log('adasdasdasda', dataArray, data1)
+  const filteredArray = dataArray.map(value => (isNaN(value) ? 110 : value))
+  console.log('adasdasdasda', filteredArray, labelColor)
 
   const chartContainer = useRef(null)
   let myChart = null
@@ -95,27 +96,25 @@ function PointBarChart({ type, data1, data }) {
       myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'April', 'April', 'April'],
+          labels: ['January', 'February', 'March', 'April', 'April', 'April', 'April', 'April'],
           datasets: [
             {
               label: 'Line Dataset',
-              data: [, ...filteredArray],
-              borderColor: [, ...labelColor],
-              pointBackgroundColor: [, ...labelColor],
-              pointRadius: 5,
+              data: [Math.trunc(mean), ...filteredArray],
+              borderColor: ['transparent', ...labelColor, 'transparent'],
+              pointBackgroundColor: ['transparent', ...labelColor, 'transparent'],
+              pointRadius: 4,
               pointHoverRadius: 5,
               pointBorderWidth: 2,
-
               borderWidth: 0,
-
               type: 'line',
             },
             {
               label: 'Bar Dataset',
-              data: [, ...filteredArray],
-              backgroundColor: [, ...labelPointColor],
+              data: [Math.trunc(mean) + 10, ...filteredArray, baseMean],
+              backgroundColor: ['transparent', ...labelPointColor, 'transparent'],
               borderRadius: 16,
-              maxBarThickness: '12',
+              maxBarThickness: '10',
               borderSkipped: false,
             },
             {
@@ -127,14 +126,15 @@ function PointBarChart({ type, data1, data }) {
 
               type: 'line',
             },
-            // {
-            //   label: 'Zero Line',
-            //   data: Array().fill(0),
-            //   borderColor: 'black', // Color of the horizontal line
-            //   borderWidth: 2, // Width of the horizontal line
-            //   type: 'line', // Set as a line dataset
-            //   pointStyle: false, // Hide points for the line dataset
-            // },
+            {
+              label: 'Line Dataset',
+              data: [baseMean, baseMean, baseMean, baseMean, baseMean, baseMean, baseMean, baseMean],
+              pointStyle: false,
+              borderColor: '#868B8F',
+              borderDash: [5, 5],
+
+              type: 'line',
+            },
           ],
         },
         options: {
@@ -151,6 +151,8 @@ function PointBarChart({ type, data1, data }) {
               position: 'top',
             },
             datalabels: {
+              backgroundColor: 'white',
+
               // Configure the datalabels plugin
 
               display: context => context.datasetIndex === 1,
@@ -160,34 +162,44 @@ function PointBarChart({ type, data1, data }) {
                 return getColorByRange(Math.abs(context.dataset.data[context.dataIndex]))
               },
 
-              borderRadius: '6',
+              borderRadius: ['6', '6', '100', '6', '100', '6', '100', '100'],
               borderWidth: 1.5,
 
               font: {
                 weight: 700,
                 family: 'Noto Sans',
-                size: 12,
+                size: 10,
               },
               color: 'black',
 
               anchor: context => {
-                return context.dataset.data[context.dataIndex] < 0 ? 'start' : 'end'
+                return context.dataIndex === 0 ? 'end' : context.dataset.data[context.dataIndex] < 0 ? 'start' : 'end'
               },
               align: context => {
-                return context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'
+                return context.dataIndex === 0 ? 'start' : context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'
               },
               formatter: value => {
-                if (typeof value === 'undefined') {
-                  return
+                if (value >= 110 || typeof value === 'undefined') {
+                  return null
                 }
                 return Math.abs(value).toString()
               }, // Display the data value as the label
-              offset: 10,
-              padding: {
-                top: 3,
-                bottom: 2.5,
-                left: 4,
-                right: 4,
+              offset: context => {
+                // console.log('test123SDED', context.dataIndex, context.dataset.data[context.dataIndex])
+                const firstValue = context.dataset.data[context.dataIndex]
+                if (context.dataIndex === 0 || context.dataIndex === 7) {
+                  return firstValue < 0 ? -3 : firstValue > 0 && context.dataIndex === 0 ? -6 : -10
+                }
+                return 7
+              },
+
+              padding: context => {
+                console.log('asdasdasd', context.dataset.data[context.dataIndex])
+                return Math.abs(context.dataset.data[context.dataIndex]) < 10 ? { top: 3, bottom: 3, left: 6, right: 5.5 } : { top: 3, bottom: 3, left: 4.1, right: 4.5 }
+                // top: 3,
+                // bottom: 3,
+                // left: 5,
+                // right: 4.5,
               },
             },
             tooltip: false,
