@@ -49,7 +49,7 @@ function PointBarChart({ type, data1, data }) {
   const baseLeft = Math.trunc(data1?.left)
   const baseStraight = Math.trunc(data1?.straight)
 
-  const mean = data?.mean
+  const mean = Math.trunc(-43)
   // const baseMean = data1?.mean
   const baseMean = Math.trunc(43)
 
@@ -80,7 +80,7 @@ function PointBarChart({ type, data1, data }) {
 
   const dataArray = [left, baseLeft, straight, baseStraight, right, baseRight]
   const filteredArray = dataArray.map(value => (isNaN(value) ? 110 : value))
-  console.log('adasdasdasda', filteredArray, labelColor)
+  // console.log('adasdasdasda', filteredArray, labelColor)
 
   const chartContainer = useRef(null)
   let myChart = null
@@ -111,7 +111,7 @@ function PointBarChart({ type, data1, data }) {
             },
             {
               label: 'Bar Dataset',
-              data: [Math.trunc(mean) + 10, ...filteredArray, baseMean],
+              data: [Math.trunc(mean), ...filteredArray, baseMean],
               backgroundColor: ['transparent', ...labelPointColor, 'transparent'],
               borderRadius: 16,
               maxBarThickness: '10',
@@ -173,10 +173,16 @@ function PointBarChart({ type, data1, data }) {
               color: 'black',
 
               anchor: context => {
-                return context.dataIndex === 0 ? 'end' : context.dataset.data[context.dataIndex] < 0 ? 'start' : 'end'
+                return context.dataIndex === 0 && context.dataset.data[context.dataIndex] > 0
+                  ? 'end'
+                  : context.dataIndex === 0 && context.dataset.data[context.dataIndex] < 0
+                    ? 'start'
+                    : context.dataset.data[context.dataIndex] < 0
+                      ? 'start'
+                      : 'end'
               },
               align: context => {
-                return context.dataIndex === 0 ? 'start' : context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'
+                return context.dataIndex === 0 ? 'center' : context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'
               },
               formatter: value => {
                 if (value >= 110 || typeof value === 'undefined') {
@@ -188,7 +194,8 @@ function PointBarChart({ type, data1, data }) {
                 // console.log('test123SDED', context.dataIndex, context.dataset.data[context.dataIndex])
                 const firstValue = context.dataset.data[context.dataIndex]
                 if (context.dataIndex === 0 || context.dataIndex === 7) {
-                  return firstValue < 0 ? -3 : firstValue > 0 && context.dataIndex === 0 ? -6 : -10
+                  console.log('asdasdasdasd', firstValue)
+                  return firstValue < 0 ? -20 : firstValue > 0 && context.dataIndex === 0 ? -6 : -10
                 }
                 return 7
               },

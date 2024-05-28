@@ -9,6 +9,7 @@ import colors from '../../../config/colors'
 import SymmentryRoundLabel from '../SymmentryRoundLabel'
 import assets from '../../../assets/assests'
 import SymmentryLabel from '../SymmentryLabel'
+import moment from 'moment'
 
 const badgeValue = {
   left: 'Left circle',
@@ -21,7 +22,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({}) {
+function DeficitCharts({ date }) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }
@@ -103,7 +104,7 @@ function DeficitCharts({}) {
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
           <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
-            1 Dec 2023
+            {moment(date).format('DD MMM YYYY')}
           </Text>
         </Box>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
@@ -137,7 +138,7 @@ function DeficitCharts({}) {
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
           <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
-            1 Dec 2023
+            {moment(date).format('DD MMM YYYY')}
           </Text>
         </Box>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
