@@ -21,6 +21,7 @@ function ChartMainContainer() {
   const [BaselineDataFromIOS, setBaselineDataFromIOS] = useState('')
   useEffect(() => {
     // Adding event for IOS app
+    onClickHandler('Deficit chart loaded')
 
     window.addEventListener('iosEvent', iosEventHandler)
 
