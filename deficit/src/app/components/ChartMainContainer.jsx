@@ -18,6 +18,7 @@ function ChartMainContainer() {
   // };
   const [dataFromIOS, setDataFromIOS] = useState('')
   const [dateFromIOS, setDateFromIOS] = useState('')
+  const [BaselineDataFromIOS, setBaselineDataFromIOS] = useState('')
   useEffect(() => {
     // Adding event for IOS app
 
@@ -31,6 +32,7 @@ function ChartMainContainer() {
       console.log('Received data from IOS : ' + e.detail.data)
       setDataFromIOS(e.detail.data)
       setDateFromIOS(e.detail.date)
+      setBaselineDataFromIOS(e.detail.baselineData)
     },
     [setDataFromIOS, setDateFromIOS],
   )
@@ -61,7 +63,7 @@ function ChartMainContainer() {
 
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'flex-start'} overflow={'hidden'}>
-      <DeficitCharts date={dateFromIOS} chartData={dataFromIOS} handleItemClick={onClickHandler} />
+      <DeficitCharts baseline={BaselineDataFromIOS} date={dateFromIOS} chartData={dataFromIOS} handleItemClick={onClickHandler} />
     </Box>
   )
 }

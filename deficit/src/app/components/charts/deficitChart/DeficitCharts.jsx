@@ -22,7 +22,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({ date }) {
+function DeficitCharts({ baseline, date }) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }
@@ -87,8 +87,8 @@ function DeficitCharts({ date }) {
         </Text>
       </Box>
       <Box maxW={'100%'} gap={'43px'} display='flex'>
-        <DeficitGraph horseSide='front' data={chartData?.deficit?.foreImpact} data1={chartData?.deficit?.foreImpact} type='Impact' />
-        <DeficitGraph horseSide='front' data={chartData?.deficit?.forePushoff} data1={chartData?.deficit?.forePushoff} type='Push Off' />
+        <DeficitGraph horseSide='front' data={chartData?.deficit?.foreImpact} data1={baseline?.deficit?.foreImpact} type='Impact' />
+        <DeficitGraph horseSide='front' data={chartData?.deficit?.forePushoff} data1={baseline?.deficit?.forePushoff} type='Push Off' />
       </Box>
       <Box mt='12px' display={'flex'} gap={'20px'}>
         {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
@@ -121,8 +121,8 @@ function DeficitCharts({ date }) {
         </Text>
       </Box>
       <Box maxW={'100%'} h={'80%'} gap={'43px'} display='flex'>
-        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindImpact} data1={chartData?.deficit?.hindImpact} type='Impact' />
-        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindPushoff} data1={chartData?.deficit?.hindPushoff} type='Push Off' />
+        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindImpact} data1={baseline?.deficit?.hindImpact} type='Impact' />
+        <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindPushoff} data1={baseline?.deficit?.hindPushoff} type='Push Off' />
       </Box>
       <Box mt='12px' gap='20px' display={'flex'}>
         {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
