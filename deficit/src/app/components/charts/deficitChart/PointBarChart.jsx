@@ -51,7 +51,7 @@ function PointBarChart({ type, data1, data }) {
 
   const mean = Math.trunc(data?.mean)
   // const baseMean = data1?.mean
-  const baseMean = Math.trunc(data?.mean)
+  const baseMean = Math.trunc(data1?.mean)
 
   const isLeftColor = !isNaN(left) ? [colors.faintblue] : ['transparent']
   const isBaseLeftColor = !isNaN(baseLeft) ? [...isLeftColor, colors.faintblue] : [...isLeftColor, 'transparent']
