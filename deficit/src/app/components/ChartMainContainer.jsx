@@ -41,7 +41,7 @@ function ChartMainContainer() {
   const onClickHandler = name => {
     console.log('Sending data to IOS : ' + name)
     // Sending Data to IOS App
-    window?.webkit?.messageHandlers?.IOS_BRIDGE?.postMessage({
+    window?.webkit?.messageHandlers?.DEFICIT_BRIDGE?.postMessage({
       message: name,
     })
   }

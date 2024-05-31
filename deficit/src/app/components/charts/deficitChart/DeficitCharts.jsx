@@ -110,7 +110,7 @@ function DeficitCharts({ baseline, chartData, date }) {
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='10px' h='10px' border={'1px'} borderRadius={'full'} borderColor={'#747474'}></Box>
           <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
-            BaseLine
+            Baseline
           </Text>
         </Box>
       </Box>
