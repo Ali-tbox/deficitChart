@@ -1,7 +1,7 @@
 import { Box, Divider, Text } from '@chakra-ui/layout'
 import React from 'react'
 import Icon from '../../form/Icon'
-// import chartData from '../chartData'
+import chartData from '../chartData'
 
 import DeficitGraph from './DeficitGraph'
 
@@ -22,7 +22,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({ baseline, chartData, date }) {
+function DeficitCharts({ baseline, date }) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }
@@ -81,8 +81,8 @@ function DeficitCharts({ baseline, chartData, date }) {
   return (
     <Box>
       <Box display={'flex'} gap='6px'>
-        <Icon image={assets.icons.trottingHorse} />
-        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'16px'} lineHeight={'20px'} color={colors.textcolor}>
+        <Icon imageHeight={'6px'} imageWidth={'8px'} image={assets.icons.trottingHorse} />
+        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} lineHeight={'20px'} color={colors.textcolor}>
           Front
         </Text>
       </Box>
@@ -115,8 +115,8 @@ function DeficitCharts({ baseline, chartData, date }) {
         </Box>
       </Box>
       <Box mt='40px' display={'flex'} gap='6px'>
-        <Icon image={assets.icons.trottingHorse1} />
-        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'14px'} lineHeight={'20px'} color={colors.textcolor}>
+        <Icon imageHeight={'7.6px'} imageWidth={'8px'} image={assets.icons.trottingHorse1} />
+        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} lineHeight={'20px'} color={colors.textcolor}>
           Hind
         </Text>
       </Box>
