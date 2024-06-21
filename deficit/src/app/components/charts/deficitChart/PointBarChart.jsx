@@ -185,7 +185,8 @@ function PointBarChart({ type, data1, data }) {
                 return context.dataIndex === 0 ? 'center' : context.dataset.data[context.dataIndex] < 0 ? 'bottom' : 'top'
               },
               formatter: value => {
-                if (value >= 110 || typeof value === 'undefined') {
+                console.log('asasd', value)
+                if (value >= 110 || typeof value === 'undefined' || isNaN(value)) {
                   return null
                 }
                 return Math.abs(value).toString()
