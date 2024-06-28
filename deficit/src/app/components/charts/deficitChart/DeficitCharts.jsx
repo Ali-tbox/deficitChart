@@ -82,7 +82,7 @@ function DeficitCharts({ baseline, chartData, date }) {
     <Box>
       <Box display={'flex'} gap='6px'>
         <Icon imageHeight={'6px'} imageWidth={'8px'} image={assets.icons.trottingHorse} />
-        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} lineHeight={'20px'} color={colors.textcolor}>
+        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
           Front
         </Text>
       </Box>
@@ -116,7 +116,7 @@ function DeficitCharts({ baseline, chartData, date }) {
       </Box>
       <Box mt='40px' display={'flex'} gap='6px'>
         <Icon imageHeight={'7.6px'} imageWidth={'8px'} image={assets.icons.trottingHorse1} />
-        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} lineHeight={'20px'} color={colors.textcolor}>
+        <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
           Hind
         </Text>
       </Box>

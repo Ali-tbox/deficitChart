@@ -6,7 +6,7 @@ import PointBarChart from './PointBarChart'
 
 function DeficitGraph({ horseSide, data1, data, type }) {
   return (
-    <Box display={'flex'} flexDirection={'column'} mt={'13px'} h='197px' w='239px' maxW={'100%'} borderRadius='8px' border='1px' borderColor={colors.faintgray}>
+    <Box display={'flex'} flexDirection={'column'} mt={'6px'} h='197px' w='239px' maxW={'100%'} borderRadius='8px' border='1px' borderColor={colors.faintgray}>
       <Box paddingY='8px' paddingX={'16px'} alignItems={'center'} display='flex' gap={'40px'}>
         <Text fontFamily={'Noto Sans'} fontSize='14px' fontWeight={700}>
           {type}
