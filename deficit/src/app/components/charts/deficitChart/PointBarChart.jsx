@@ -79,8 +79,11 @@ function PointBarChart({ type, data1, data }) {
   // const labelData = isRight
 
   const dataArray = [left, baseLeft, straight, baseStraight, right, baseRight]
+  const array = dataArray.filter(item => !Number.isNaN(item))
+  const positiveLabel = array.map(item => Math.abs(item))
+
   const filteredArray = dataArray.map(value => (isNaN(value) ? 110 : value))
-  // console.log('adasdasdasda', filteredArray, labelColor)
+  console.log('adasdasdasda', positiveLabel)
 
   const chartContainer = useRef(null)
   let myChart = null
@@ -241,8 +244,8 @@ function PointBarChart({ type, data1, data }) {
               ticks: {
                 display: false,
               },
-              suggestedMin: -120,
-              suggestedMax: 120,
+              min: Math.trunc(Math.abs(Math.max(...positiveLabel))) === 0 ? -100 : -(Math.abs(Math.max(...positiveLabel)) * 0.45 + Math.abs(Math.max(...positiveLabel))),
+              max: Math.trunc(Math.abs(Math.max(...positiveLabel))) === 0 ? 100 : Math.abs(Math.max(...positiveLabel)) * 0.45 + Math.abs(Math.max(...positiveLabel)),
             },
           },
         },
