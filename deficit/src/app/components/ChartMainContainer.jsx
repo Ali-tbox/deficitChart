@@ -69,7 +69,7 @@ function ChartMainContainer() {
         baseline={BaselineDataFromIOS === '' || BaselineDataFromIOS === undefined ? dataFromIOS : BaselineDataFromIOS}
         actualBaslineData={BaselineDataFromIOS}
         date={dateFromIOS}
-        chartData={dataFromIOS}
+        chartData={BaselineDataFromIOS === '' || BaselineDataFromIOS === undefined ? [] : dataFromIOS}
         handleItemClick={onClickHandler}
       />
     </Box>
