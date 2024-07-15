@@ -22,7 +22,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({ actualBaslineData, baseline, chartData, date }) {
+function DeficitCharts({ actualchartData, actualBaslineData, baseline, chartData, date }) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }
@@ -77,7 +77,7 @@ function DeficitCharts({ actualBaslineData, baseline, chartData, date }) {
   const uniqueFrontArray = FrontLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
   const uniqueHindArray = HindLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
 
-  console.log('123123123123132', baseline, chartData)
+  console.log('123123123123132', baseline, actualchartData)
   return (
     <Box>
       <Box display={'flex'} gap='6px'>
@@ -91,7 +91,7 @@ function DeficitCharts({ actualBaslineData, baseline, chartData, date }) {
         <DeficitGraph horseSide='front' data={chartData?.deficit?.forePushoff} data1={baseline?.deficit?.forePushoff} type='Push Off' />
       </Box>
       <Box mt='12px' display={'flex'} gap={'20px'}>
-        {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
+        {actualchartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
         <Box display={'flex'} gap={'4px'} alignItems={'center'}>
           <Icon imageWidth={'14px'} imageHeight={'2px'} image={assets.icons.Line} />
           <Text ml='2px' fontFamily={'Noto Sans'} fontSize={'11px'} textAlign={'center'} lineHeight={'16px'} color={colors.faintblack} paddingTop={'2px'}>
@@ -129,7 +129,7 @@ function DeficitCharts({ actualBaslineData, baseline, chartData, date }) {
         <DeficitGraph horseSide='hind' data={chartData?.deficit?.hindPushoff} data1={baseline?.deficit?.hindPushoff} type='Push Off' />
       </Box>
       <Box mt='12px' gap='20px' display={'flex'}>
-        {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
+        {actualchartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
         <Box display={'flex'} gap={'4px'} alignItems={'center'}>
           <Icon imageWidth={'14px'} imageHeight={'2px'} image={assets.icons.Line} />
           <Text ml='2px' fontFamily={'Noto Sans'} fontSize={'11px'} textAlign={'center'} lineHeight={'16px'} color={colors.faintblack} paddingTop={'2px'}>
