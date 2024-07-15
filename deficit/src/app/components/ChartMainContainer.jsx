@@ -61,10 +61,17 @@ function ChartMainContainer() {
       return false
     }
   }
+  console.log('hello', BaselineDataFromIOS === '')
 
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'flex-start'} overflow={'hidden'}>
-      <DeficitCharts baseline={BaselineDataFromIOS} date={dateFromIOS} chartData={dataFromIOS} handleItemClick={onClickHandler} />
+      <DeficitCharts
+        baseline={BaselineDataFromIOS === '' || BaselineDataFromIOS === undefined ? dataFromIOS : BaselineDataFromIOS}
+        actualBaslineData={BaselineDataFromIOS}
+        date={dateFromIOS}
+        chartData={dataFromIOS}
+        handleItemClick={onClickHandler}
+      />
     </Box>
   )
 }

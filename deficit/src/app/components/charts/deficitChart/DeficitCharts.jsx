@@ -22,7 +22,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({ baseline, chartData, date }) {
+function DeficitCharts({ actualBaslineData, baseline, chartData, date }) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }
@@ -102,10 +102,14 @@ function DeficitCharts({ baseline, chartData, date }) {
       <Divider mt='8px' />
       <Box display={'flex'} gap={'8px'} mt='8px'>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
-          <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
-          <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
-            {moment(date).format('DD MMM YYYY')}
-          </Text>
+          {actualBaslineData && (
+            <>
+              <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
+              <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
+                {moment(date).format('DD MMM YYYY')}
+              </Text>
+            </>
+          )}
         </Box>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='10px' h='10px' border={'1px'} borderRadius={'full'} borderColor={'#747474'}></Box>
@@ -136,10 +140,14 @@ function DeficitCharts({ baseline, chartData, date }) {
       <Divider mt='8px' />
       <Box display={'flex'} gap={'10px'} mt='8px'>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
-          <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
-          <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
-            {moment(date).format('DD MMM YYYY')}
-          </Text>
+          {actualBaslineData && (
+            <>
+              <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
+              <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
+                {moment(date).format('DD MMM YYYY')}
+              </Text>
+            </>
+          )}
         </Box>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='10px' h='10px' border={'1px'} borderRadius={'full'} borderColor={'#747474'}></Box>
