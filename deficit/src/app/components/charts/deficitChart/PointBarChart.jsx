@@ -258,7 +258,7 @@ function PointBarChart({ type, data1, data }) {
         myChart.destroy()
       }
     }
-  }, [data])
+  }, [data, data1])
 
   return <canvas style={{ width: '100%', height: '100%' }} ref={chartContainer} />
 }
