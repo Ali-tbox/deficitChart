@@ -77,7 +77,7 @@ function DeficitCharts({ actualBaslineData, baseline, chartData, date }) {
   const uniqueFrontArray = FrontLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
   const uniqueHindArray = HindLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
 
-  console.log('123123123123132', getLabelByRange())
+  console.log('123123123123132', baseline, chartData)
   return (
     <Box>
       <Box display={'flex'} gap='6px'>

@@ -19,6 +19,7 @@ function ChartMainContainer() {
   const [dataFromIOS, setDataFromIOS] = useState('')
   const [dateFromIOS, setDateFromIOS] = useState('')
   const [BaselineDataFromIOS, setBaselineDataFromIOS] = useState('')
+  const [actuallBaselineDataFromIOS, setActuallBaselineDataFromIOS] = useState('')
   useEffect(() => {
     // Adding event for IOS app
     onClickHandler('Deficit chart loaded')
@@ -31,9 +32,10 @@ function ChartMainContainer() {
   const iosEventHandler = useCallback(
     e => {
       console.log('Received data from IOS : ' + e.detail.data)
-      setDataFromIOS(e.detail.data)
+      setDataFromIOS(e.detail.baselineData === '' || e.detail.baselineData === undefined ? [] : e.detail.data)
       setDateFromIOS(e.detail.date)
-      setBaselineDataFromIOS(e.detail.baselineData)
+      setActuallBaselineDataFromIOS(e.detail.baselineData)
+      setBaselineDataFromIOS(e.detail.baselineData === '' || e.detail.baselineData === undefined ? e.detail.data : e.detail.baselineData)
     },
     [setDataFromIOS, setDateFromIOS],
   )
@@ -65,13 +67,7 @@ function ChartMainContainer() {
 
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'flex-start'} overflow={'hidden'}>
-      <DeficitCharts
-        baseline={BaselineDataFromIOS === '' || BaselineDataFromIOS === undefined ? dataFromIOS : BaselineDataFromIOS}
-        actualBaslineData={BaselineDataFromIOS}
-        date={dateFromIOS}
-        chartData={BaselineDataFromIOS === '' || BaselineDataFromIOS === undefined ? [] : dataFromIOS}
-        handleItemClick={onClickHandler}
-      />
+      <DeficitCharts baseline={BaselineDataFromIOS} actualBaslineData={actuallBaselineDataFromIOS} date={dateFromIOS} chartData={dataFromIOS} handleItemClick={onClickHandler} />
     </Box>
   )
 }
