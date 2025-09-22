@@ -22,7 +22,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function DeficitCharts({ actualchartData, actualBaslineData, baseline, chartData, date }) {
+function DeficitCharts({ showWithersToggle, withersToggleValue, actualchartData, actualBaslineData, baseline, chartData, date }) {
   function getLabelByRange(number) {
     if (number >= 0 && number <= 11) {
       return { name: 'Normal symmetry', color: colors.mediumGreen }
@@ -57,6 +57,23 @@ function DeficitCharts({ actualchartData, actualBaslineData, baseline, chartData
       return {} // Default color if the number is out of specified ranges
     }
   }
+  function getLabelByRangeWithers(number) {
+    if (number >= 0 && number <= 5) {
+      return { name: 'Normal symmetry', color: colors.mediumGreen }
+    } else if (number >= 6 && number <= 13) {
+      return { name: 'Mild asymmetry', color: colors.darkGreen }
+    } else if (number >= 14 && number <= 21) {
+      return { name: 'Mild to moderate asymmetry', color: colors.lightYellow }
+    } else if (number >= 22 && number <= 29) {
+      return { name: 'Moderate asymmetry', color: colors.paleYellow }
+    } else if (number >= 30 && number <= 37) {
+      return { name: 'Moderate to severe asymmetry', color: colors.mediumRed }
+    } else if (number >= 38) {
+      return { name: 'Severe asymmetry', color: colors.mehron }
+    } else {
+      return {} // Default color if the number is out of specified ranges
+    }
+  }
 
   const FrontLabels = [
     getLabelByRange(Math.abs(chartData?.deficit?.foreImpact?.straight)),
@@ -74,12 +91,22 @@ function DeficitCharts({ actualchartData, actualBaslineData, baseline, chartData
     getLabelByRangeHind(Math.abs(chartData?.deficit?.hindPushoff?.right)),
     getLabelByRangeHind(Math.abs(chartData?.deficit?.hindPushoff?.left)),
   ]
+  const WithersLabels = [
+    getLabelByRangeWithers(Math.abs(chartData?.deficit?.withersImpact?.straight)),
+    getLabelByRangeWithers(Math.abs(chartData?.deficit?.withersImpact?.right)),
+    getLabelByRangeWithers(Math.abs(chartData?.deficit?.withersImpact?.left)),
+    getLabelByRangeWithers(Math.abs(chartData?.deficit?.withersPushoff?.straight)),
+    getLabelByRangeWithers(Math.abs(chartData?.deficit?.withersPushoff?.right)),
+    getLabelByRangeWithers(Math.abs(chartData?.deficit?.withersPushoff?.left)),
+  ]
   const uniqueFrontArray = FrontLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
   const uniqueHindArray = HindLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
+  const uniqueWithersArray = WithersLabels.filter((obj, index, self) => obj.name && index === self.findIndex(o => o.name === obj.name))
 
   console.log('123123123123132', baseline, actualchartData)
   return (
     <Box>
+      {/* front */}
       <Box display={'flex'} gap='6px'>
         <Icon imageHeight={'6px'} imageWidth={'8px'} image={assets.icons.trottingHorse} />
         <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
@@ -118,6 +145,52 @@ function DeficitCharts({ actualchartData, actualBaslineData, baseline, chartData
           </Text>
         </Box>
       </Box>
+      {/* withers */}
+      {withersToggleValue && (
+        <>
+          <Box mt='40px' display={'flex'} gap='6px'>
+            <Icon imageHeight={'7.6px'} imageWidth={'8px'} image={assets.icons.trottingHorse3} />
+            <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
+              Withers
+            </Text>
+          </Box>
+          <Box maxW={'100%'} h={'80%'} gap={'43px'} display='flex'>
+            <DeficitGraph horseSide='withers' data={chartData?.deficit?.withersImpact} data1={baseline?.deficit?.withersImpact} type='Impact' />
+            <DeficitGraph horseSide='withers' data={chartData?.deficit?.withersPushoff} data1={baseline?.deficit?.withersPushoff} type='Push Off' />
+          </Box>
+          <Box mt='12px' gap='20px' display={'flex'}>
+            {actualchartData?.confidence?.map(
+              (item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />,
+            )}
+            <Box display={'flex'} gap={'4px'} alignItems={'center'}>
+              <Icon imageWidth={'14px'} imageHeight={'2px'} image={assets.icons.Line} />
+              <Text ml='2px' fontFamily={'Noto Sans'} fontSize={'11px'} textAlign={'center'} lineHeight={'16px'} color={colors.faintblack} paddingTop={'2px'}>
+                Mean
+              </Text>
+            </Box>
+          </Box>
+          <Divider mt='8px' />
+          <Box display={'flex'} gap={'10px'} mt='8px'>
+            <Box display={'flex'} alignItems={'center'} gap={'4px'}>
+              {actualBaslineData && (
+                <>
+                  <Box w='10px' h='10px' border={'1px'} borderRadius={'3px'} borderColor={'#747474'}></Box>
+                  <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
+                    {moment(date).format('DD MMM YYYY')}
+                  </Text>
+                </>
+              )}
+            </Box>
+            <Box display={'flex'} alignItems={'center'} gap={'4px'}>
+              <Box w='10px' h='10px' border={'1px'} borderRadius={'full'} borderColor={'#747474'}></Box>
+              <Text fontFamily={'Noto Sans'} fontSize={'11px'} color={colors.textcolor}>
+                Baseline
+              </Text>
+            </Box>
+          </Box>
+        </>
+      )}
+      {/* hind */}
       <Box mt='40px' display={'flex'} gap='6px'>
         <Icon imageHeight={'7.6px'} imageWidth={'8px'} image={assets.icons.trottingHorse1} />
         <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>

@@ -39,6 +39,23 @@ function PointBarChart({ type, data1, data }) {
         return 'black' // Default color if the number is out of specified ranges
       }
     }
+    if (type === 'withers') {
+      if (number >= 0 && number <= 5) {
+        return colors.mediumGreen
+      } else if (number >= 6 && number <= 13) {
+        return colors.darkGreen
+      } else if (number >= 14 && number <= 21) {
+        return colors.lightYellow
+      } else if (number >= 22 && number <= 29) {
+        return colors.paleYellow
+      } else if (number >= 30 && number <= 37) {
+        return colors.mediumRed
+      } else if (number >= 38) {
+        return colors.mehron
+      } else {
+        return 'black' // Default color if the number is out of specified ranges
+      }
+    }
   }
 
   const right = Math.trunc(data?.right)

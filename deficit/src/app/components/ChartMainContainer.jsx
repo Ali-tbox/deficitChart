@@ -21,6 +21,9 @@ function ChartMainContainer() {
   const [BaselineDataFromIOS, setBaselineDataFromIOS] = useState('')
   const [actuallBaselineDataFromIOS, setActuallBaselineDataFromIOS] = useState('')
   const [actuallChartDataFromIOS, setactuallChartDataFromIOS] = useState('')
+  const [withersToggleValue, setWithersToggleValue] = useState(false)
+  const [showWithersToggle, setShowWithersToggle] = useState(false)
+
   useEffect(() => {
     // Adding event for IOS app
     onClickHandler('Deficit chart loaded')
@@ -33,6 +36,21 @@ function ChartMainContainer() {
   const iosEventHandler = useCallback(
     e => {
       console.log('Received data from IOS : ' + e.detail.data)
+      let parsedData = e.detail.data
+      if (typeof e.detail.data === 'string') {
+        try {
+          parsedData = JSON.parse(e.detail.data)
+        } catch (error) {
+          console.error('Error parsing data:', error)
+        }
+      }
+      const isNewDataFormat = parsedData && 'isWitherData' in parsedData
+      if (isNewDataFormat) {
+        setShowWithersToggle(parsedData.isWitherData)
+      } else {
+        setShowWithersToggle(false)
+      }
+      setWithersToggleValue(isNewDataFormat === true ? e.detail.withersToggle : false)
       setDataFromIOS(e.detail.baselineData === '' || e.detail.baselineData === undefined ? [] : e.detail.data)
       setDateFromIOS(e.detail.date)
       setActuallBaselineDataFromIOS(e.detail.baselineData)
@@ -70,6 +88,8 @@ function ChartMainContainer() {
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'flex-start'} overflow={'hidden'}>
       <DeficitCharts
+        showWithersToggle={showWithersToggle}
+        withersToggleValue={withersToggleValue}
         actualchartData={actuallChartDataFromIOS}
         baseline={BaselineDataFromIOS}
         actualBaslineData={actuallBaselineDataFromIOS}

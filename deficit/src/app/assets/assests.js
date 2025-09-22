@@ -51,6 +51,7 @@ import chatListLogo from './icons/chatListLogo.svg'
 import darkInfo from './icons/darkInfo.svg'
 import trottingHorse from './icons/trottingHorse.svg'
 import trottingHorse1 from './icons/trottingHorse1.svg'
+import trottingHorse3 from './icons/trottingHorse3.svg'
 import edit from './icons/pen.svg'
 import medical from './icons/medical.svg'
 import hind from './icons/hind.svg'
@@ -118,6 +119,7 @@ const assets = {
     darkInfo,
     trottingHorse,
     trottingHorse1,
+    trottingHorse3,
     edit,
     medical,
     hind,
