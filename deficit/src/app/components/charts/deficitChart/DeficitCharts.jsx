@@ -148,7 +148,7 @@ function DeficitCharts({ showWithersToggle, withersToggleValue, actualchartData,
       {/* withers */}
       {withersToggleValue && (
         <>
-          <Box mt='40px' display={'flex'} gap='6px'>
+          <Box mt='20px' display={'flex'} gap='6px'>
             <Icon imageHeight={'7.6px'} imageWidth={'8px'} image={assets.icons.trottingHorse3} />
             <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
               Withers
@@ -191,7 +191,7 @@ function DeficitCharts({ showWithersToggle, withersToggleValue, actualchartData,
         </>
       )}
       {/* hind */}
-      <Box mt='40px' display={'flex'} gap='6px'>
+      <Box mt='20px' display={'flex'} gap='6px'>
         <Icon imageHeight={'7.6px'} imageWidth={'8px'} image={assets.icons.trottingHorse1} />
         <Text fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
           Hind
